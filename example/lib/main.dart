@@ -119,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
       LoadingDialog.start(context);
       final response = await HttpClient().get('photos', header: {});
       if (response!.statusCode == HttpStatus.ok) {
-        responseList = PhotoModel().jsonParser(response.bodyBytes);
+        responseList = PhotoModel().jsonParser(response.body);
         setState(() {});
       }
     } catch (e) {
@@ -135,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
       LoadingDialog.start(context);
       final response = await HttpClient().get('photos', header: {});
       if (response!.statusCode == HttpStatus.ok) {
-        responseList = await PhotoModel().backgroundJsonParser(response.bodyBytes);
+        responseList = await PhotoModel().backgroundJsonParser(response.body);
         setState(() {});
       }
     } catch (e) {
@@ -217,7 +217,7 @@ class LoadingDialog {
               width: MediaQuery.of(context).size.width / 4,
               padding: EdgeInsets.all(MediaQuery.of(context).size.width / 13),
               decoration:
-                  const BoxDecoration(color: Colors.black38, borderRadius: BorderRadius.all(Radius.circular(12))),
+              const BoxDecoration(color: Colors.black38, borderRadius: BorderRadius.all(Radius.circular(12))),
               child: const AspectRatio(
                 aspectRatio: 1,
                 child: CircularProgressIndicator(),
