@@ -33,7 +33,10 @@ class PhotoModel extends IBaseModel<PhotoModel> {
     this.title,
     this.url,
     this.thumbnailUrl,
+    this.address,
   });
+
+  Address? address;
 
   int? albumId;
   int? id;
@@ -48,6 +51,7 @@ class PhotoModel extends IBaseModel<PhotoModel> {
         title: json["title"],
         url: json["url"],
         thumbnailUrl: json["thumbnailUrl"],
+        address: Address.fromJson(json["address"]),
       );
 
   @override

@@ -3,7 +3,6 @@ library background_json_parser;
 import 'dart:convert';
 import 'dart:isolate';
 
-
 /// # background_json_parser
 ///
 /// With this package you can easily parse your json and convert your model to json.
@@ -171,9 +170,7 @@ import 'dart:isolate';
 /// String json = await userModel().backgroundConvertToJson(list);
 /// ```
 
-
 abstract class IBaseModel<T> {
-
   /// Override this method and convert map (argument) to your class object such as:
   /// @override
   /// UserModel fromJson(Map<String, dynamic> json) => UserModel(
@@ -200,7 +197,7 @@ abstract class IBaseModel<T> {
   /// "website": website,
   /// "company": company!.toJson(),
   /// };
-  Map<String ,dynamic> toJson();
+  Map<String, dynamic> toJson();
 
   /// You can parse your json with this method such as:
   /// UserModel user = UserModel().jsonParser(response.body);
@@ -212,7 +209,7 @@ abstract class IBaseModel<T> {
     final _json = json.decode(jsonBody);
     if (_json is List) {
       return _json.map((e) => fromJson(e)).toList().cast<T>();
-    } else if (_json is Map<String,dynamic>) {
+    } else if (_json is Map<String, dynamic>) {
       return fromJson(_json);
     } else {
       return _json;
@@ -224,13 +221,17 @@ abstract class IBaseModel<T> {
   ///
   Future<dynamic> backgroundJsonParser(String jsonBody) async {
     final port = ReceivePort('background_json_parser Package');
-    await Isolate.spawn(_backgroundJsonParser, {'port': port.sendPort, 'body': jsonBody});
+    await Isolate.spawn(
+      _backgroundJsonParser,
+      {'port': port.sendPort, 'body': jsonBody},
+      onError: port.sendPort,
+    );
     return await port.first;
   }
 
   _backgroundJsonParser(map) {
     final port = map['port'];
-    Isolate.exit(port,jsonParser(map['body']));
+    Isolate.exit(port, jsonParser(map['body']));
   }
 
   /// You can convert your model to json such as
@@ -240,11 +241,11 @@ abstract class IBaseModel<T> {
   /// String json = userModel().convertToJson(list);
   ///
   String convertToJson([dynamic model]) {
-    if(model == null){
+    if (model == null) {
       return json.encode(toJson());
     }
 
-    assert (model is T || model is List<T>);
+    assert(model is T || model is List<T>);
 
     if (model is List) {
       final list = List.from(model.map((e) => e?.toJson()));
@@ -262,13 +263,17 @@ abstract class IBaseModel<T> {
   ///
   Future<String> backgroundConvertToJson([List<T>? model]) async {
     final port = ReceivePort('background_json_parser Package');
-    await Isolate.spawn<Map>(_backgroundConvertToJson, {'port': port.sendPort, 'model': model});
+    await Isolate.spawn<Map>(
+      _backgroundConvertToJson,
+      {'port': port.sendPort, 'model': model},
+      onError: port.sendPort,
+    );
     return await port.first;
   }
 
   _backgroundConvertToJson(Map map) {
     final port = map['port'];
     final model = map['model'];
-    Isolate.exit(port,convertToJson(model));
+    Isolate.exit(port, convertToJson(model));
   }
 }
