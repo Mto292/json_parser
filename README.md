@@ -1,3 +1,5 @@
+[<img alt="alt_text" width="240px" src="https://cdn.buymeacoffee.com/buttons/default-orange.png" />](https://www.buymeacoffee.com/mustafahusF)
+
 # background_json_parser
 
 With this package you can easily parse your json and convert your model to json.
@@ -15,7 +17,7 @@ It has a very easy to use.
 
 ```yaml
    dependencies:
-     background_json_parser: ^1.0.3
+     background_json_parser: ^1.0.4
 ```
 
 2. import package.

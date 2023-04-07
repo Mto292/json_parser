@@ -20,7 +20,7 @@ import 'dart:isolate';
 ///
 /// ```yaml
 /// dependencies:
-/// background_json_parser: ^1.0.3
+/// background_json_parser: ^1.0.4
 /// ```
 ///
 /// 2. import package.

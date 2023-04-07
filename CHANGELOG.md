@@ -1,3 +1,6 @@
+## 1.0.4
+* Doc edit
+
 ## 1.0.3
 * Isolate Error exception added.
 

@@ -51,7 +51,7 @@ class PhotoModel extends IBaseModel<PhotoModel> {
         title: json["title"],
         url: json["url"],
         thumbnailUrl: json["thumbnailUrl"],
-        address: Address.fromJson(json["address"]),
+        address: json["address"] == null ? null : Address.fromJson(json["address"]),
       );
 
   @override
