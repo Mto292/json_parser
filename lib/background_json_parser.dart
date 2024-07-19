@@ -22,7 +22,7 @@ import 'package:flutter/foundation.dart';
 ///
 /// ```yaml
 /// dependencies:
-/// background_json_parser: ^1.0.4
+/// background_json_parser: ^1.0.5
 /// ```
 ///
 /// 2. import package.
