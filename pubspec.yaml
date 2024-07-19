@@ -1,10 +1,10 @@
 name: background_json_parser
 description: A flutter package of json parser.
-version: 1.0.4
+version: 1.0.5
 homepage: https://github.com/Mto292/json_parser.git
 
 environment:
-  sdk: ">=2.12.2 <3.0.0"
+  sdk: '>=3.4.1 <4.0.0'
   flutter: ">=1.17.0"
 
 dependencies:

@@ -1,3 +1,6 @@
+## 1.0.5
+* Version upgrade
+
 ## 1.0.4
 * Doc edit
 

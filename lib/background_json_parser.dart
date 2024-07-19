@@ -3,6 +3,8 @@ library background_json_parser;
 import 'dart:convert';
 import 'dart:isolate';
 
+import 'package:flutter/foundation.dart';
+
 /// # background_json_parser
 ///
 /// With this package you can easily parse your json and convert your model to json.
@@ -220,6 +222,7 @@ abstract class IBaseModel<T> {
   /// UserModel user = await UserModel().backgroundJsonParser(response.body);
   ///
   Future<dynamic> backgroundJsonParser(String jsonBody) async {
+    if(kIsWeb) return jsonParser(jsonBody);
     final port = ReceivePort('background_json_parser Package');
     await Isolate.spawn(
       _backgroundJsonParser,
@@ -262,6 +265,7 @@ abstract class IBaseModel<T> {
   /// String json = await userModel().backgroundConvertToJson(list);
   ///
   Future<String> backgroundConvertToJson([List<T>? model]) async {
+    if(kIsWeb) return convertToJson(model);
     final port = ReceivePort('background_json_parser Package');
     await Isolate.spawn<Map>(
       _backgroundConvertToJson,
