@@ -218,11 +218,28 @@ abstract class IBaseModel<T> {
     }
   }
 
+  /// This method helps you convert a JSON map or a list of JSON maps into
+  /// a corresponding model class object.
+  /// UserModel user = UserModel().jsonParser(response.body);
+  ///
+  dynamic jsonParserByMap(dynamic map) {
+    // enter your model as generic type to IBaseModel.
+    assert(T.toString() != 'dynamic' && (map is Map || map is List<Map>));
+
+    if (map is List) {
+      return map.map((e) => fromJson(e)).toList().cast<T>();
+    } else if (map is Map<String, dynamic>) {
+      return fromJson(map);
+    } else {
+      return map;
+    }
+  }
+
   /// You can parse your json in background (multi thread) with this method such as:
   /// UserModel user = await UserModel().backgroundJsonParser(response.body);
   ///
   Future<dynamic> backgroundJsonParser(String jsonBody) async {
-    if(kIsWeb) return jsonParser(jsonBody);
+    if (kIsWeb) return jsonParser(jsonBody);
     final port = ReceivePort('background_json_parser Package');
     await Isolate.spawn(
       _backgroundJsonParser,
@@ -265,7 +282,7 @@ abstract class IBaseModel<T> {
   /// String json = await userModel().backgroundConvertToJson(list);
   ///
   Future<String> backgroundConvertToJson([List<T>? model]) async {
-    if(kIsWeb) return convertToJson(model);
+    if (kIsWeb) return convertToJson(model);
     final port = ReceivePort('background_json_parser Package');
     await Isolate.spawn<Map>(
       _backgroundConvertToJson,
