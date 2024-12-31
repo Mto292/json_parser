@@ -207,15 +207,7 @@ abstract class IBaseModel<T> {
   dynamic jsonParser(String jsonBody) {
     // enter your model as generic type to IBaseModel.
     assert(T.toString() != 'dynamic');
-
-    final _json = json.decode(jsonBody);
-    if (_json is List) {
-      return _json.map((e) => fromJson(e)).toList().cast<T>();
-    } else if (_json is Map<String, dynamic>) {
-      return fromJson(_json);
-    } else {
-      return _json;
-    }
+    return jsonParserByMap(json.decode(jsonBody));
   }
 
   /// This method helps you convert a JSON map or a list of JSON maps into
@@ -224,7 +216,7 @@ abstract class IBaseModel<T> {
   ///
   dynamic jsonParserByMap(dynamic map) {
     // enter your model as generic type to IBaseModel.
-    assert(T.toString() != 'dynamic' && (map is Map || map is List<Map>));
+    assert(T.toString() != 'dynamic' && (map is Map || map is List));
 
     if (map is List) {
       return map.map((e) => fromJson(e)).toList().cast<T>();

@@ -1,3 +1,6 @@
+## 1.0.6
+* jsonParserByMap added
+
 ## 1.0.5
 * Version upgrade
 
