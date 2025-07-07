@@ -210,6 +210,14 @@ abstract class IBaseModel<T> {
     return jsonParserByMap(json.decode(jsonBody));
   }
 
+  dynamic tryJsonParser(String jsonBody) {
+    try {
+      return jsonParser(jsonBody);
+    } catch (e) {
+      return null;
+    }
+  }
+
   /// This method helps you convert a JSON map or a list of JSON maps into
   /// a corresponding model class object.
   /// UserModel user = UserModel().jsonParser(response.body);
@@ -224,6 +232,14 @@ abstract class IBaseModel<T> {
       return fromJson(map);
     } else {
       return map;
+    }
+  }
+
+  dynamic tryJsonParserByMap(dynamic map) {
+    try {
+      return jsonParserByMap(map);
+    } catch (e) {
+      return null;
     }
   }
 

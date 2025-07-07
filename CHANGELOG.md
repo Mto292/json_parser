@@ -1,3 +1,6 @@
+## 1.0.7
+* tryJsonParser added
+
 ## 1.0.6
 * jsonParserByMap added
 
